@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+        <div class="container">
+            <h4 style="color: green">De Manaus, no Coração da Amazônia, para o Mundo!</h4><br>
+            <h3>Aqui vamos falar sobre Engenharia, Inteligência Artificial, Marketing Digital, Manufatura e Operações Logísticas</h3> <br>
+            <h3>Divulgue aqui suas idéias e seus projetos e vamos desenvolver nossa Comunidade!</h3>
+            <hr>
+            {% for post in posts %}
+            <div class="row border mt-4 p-3 meupost">
+                <div class="col col-3">
+                    <div class="image pe-2"> <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" class="rounded" width="200"> </div>
+                    <strong>{{ post.autor.username }}</strong><hr>
+                    <div class="row justify-content-center">
+                        <strong style="color: Red">Áreas de Interesse em Tecnologia</strong>
+                            {% for tecnologia in post.autor.tecnologias.split(';') %}
+                                <button type="button" class="btn btn-success mt-2" disabled>{{ tecnologia }}</button>
+                            {% endfor %}
+                    </div>
+                </div>
+                <div class="col col-9">
+                    <a style="text-decoration: none" href="{{ url_for('exibir_post', post_id=post.id) }}"><h3>{{ post.titulo }}</h3></a>
+                    <p>{{ post.corpo }}</p>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+{% endblock %}
